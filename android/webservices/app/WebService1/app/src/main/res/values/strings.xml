@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WebService1</string>
+    <string name="title_activity_main">WebService1</string>
+    <string name="action_settings">Settings</string>
+    <string name="major">Retorno do WS</string>
+    <string name="recuperar_dados_ws">Recuperar dados</string>
+    <string name="enviar_dados_ws">Enviar dados WS</string>
+    <string name="parametro1">Atributo 1</string>
+    <string name="parametro2">Atributo 2</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
