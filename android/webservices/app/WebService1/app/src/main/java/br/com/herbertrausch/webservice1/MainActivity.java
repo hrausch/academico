@@ -2,49 +2,104 @@ package br.com.herbertrausch.webservice1;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
-import br.com.herbertrausch.webservice1.R;
-import ws.RestFullClient;
+import java.util.ArrayList;
+
+import br.com.herbertrausch.webservice1.adapter.PessoaAdapter;
+import br.com.herbertrausch.webservice1.model.Pessoa;
+import br.com.herbertrausch.webservice1.ws.RestFullClient;
 
 
 public class MainActivity extends Activity {
+
+    //Cria o adaptador para a lista
+    PessoaAdapter pAdapter = new PessoaAdapter(this,new ArrayList<Pessoa>());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main_exemplo);
-
-         AsyncTask taskWs = new Connection();
-        taskWs.execute();
     }
 
-
-
+    /**
+     * Ao clicar no botao recuperar serah executado a chamada ao webservice em um nova thread.
+     * @param v
+     */
     public void recuperar(View v){
-        Log.i("WS", "pressionado");
+
+        //Objeto que sera executado em backgrounnd
+        AsyncTask taskWsRecuperar = new ConnectionPessoa();
+        taskWsRecuperar.execute(RestFullClient.OPERACAO_RECUPERAR);
+
     }
 
-    class Connection extends AsyncTask<Object, Void, String> {
+    /**
+     * Ao clicar no botao recuperar serah executado a chamada ao webservice em um nova thread.
+     * @param v
+     */
+    public void salvar(View v){
+
+        //Objeto que sera executado em backgrounnd
+        AsyncTask taskWsSalvar = new ConnectionPessoa();
+        taskWsSalvar.execute(RestFullClient.OPERACAO_SALVAR);
+    }
+
+
+    /***
+     * Implementacao da classe que ira roda em umma Thread separa da Thread da Interface
+     */
+    class ConnectionPessoa extends AsyncTask<Object, Void,  ArrayList<Pessoa>> {
+
+
+        private RestFullClient cliente = new RestFullClient();
         @Override
-        protected String doInBackground(Object ... args0) {
+        /** Este metodo eh executado por um Thread que eh controlado pela classe
+         *  Quando esta Thread finaliza a execucao, automaticamente o metodo
+         *  onPostExecute eh executado
+         */
+        protected  ArrayList<Pessoa> doInBackground(Object ... args) {
 
-            String content = "";
-            RestFullClient cliente = new RestFullClient();
-            content = cliente.testeGet();
+            int operacao = (int) args[0];
+            ArrayList<Pessoa> list = new ArrayList<Pessoa>();
 
-            return content;
+            switch (operacao){
+
+                case RestFullClient.OPERACAO_SALVAR:
+
+                    EditText inputNome = (EditText) findViewById(R.id.txtNome);
+                    EditText inputTelefone = (EditText) findViewById(R.id.txtTelefone);
+
+                    String nome = inputNome.getText().toString();
+                    String telefone = inputTelefone.getText().toString();
+
+                    cliente.salvarPessoa(nome, telefone);
+
+                    list = cliente.recuperarPessoas();
+
+                    break;
+
+                case RestFullClient.OPERACAO_RECUPERAR:
+                    list = cliente.recuperarPessoas();
+                    break;
+            }
+
+
+            return list;
 
         }
 
-        // This is called when doInBackground() is finished
-        protected void onPostExecute(String result) {
-            EditText input1 = (EditText) findViewById(R.id.editText);
-            input1.setText(result);
+        /** Este metodo eh automaticamente executado quando doInBackground() finalizar
+         * Neste momento ele irah renderizar o listview com os dados recuperados no webservice
+        */
+        protected void onPostExecute(ArrayList<Pessoa> result) {
+
+            ListView listView = (ListView) findViewById(R.id.listView);
+            pAdapter.setLista(result);
+            listView.setAdapter(pAdapter);
 
         }
     }
