@@ -45,6 +45,16 @@
         <activity
             android:name="com.example.hrausch.exemplolist.Exemplo4List"
             android:label="@string/title_activity_exemplo4_list" >
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+
+        <activity
+            android:name="com.example.hrausch.exemplolist.Exemplo5List"
+            android:label="@string/title_activity_exemplo5_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

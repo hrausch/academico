@@ -8,5 +8,6 @@
     <string name="title_activity_exemplo2_list">Exemplo2ListActivity</string>
     <string name="title_activity_exemplo3_list">Exemplo3ListActivity</string>
     <string name="title_activity_exemplo4_list">Exemplo4ListActivity</string>
+    <string name="title_activity_exemplo5_list">Exemplo5ListActivity</string>
 
 </resources>
