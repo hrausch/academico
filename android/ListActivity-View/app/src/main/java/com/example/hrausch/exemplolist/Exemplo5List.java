@@ -2,8 +2,10 @@ package com.example.hrausch.exemplolist;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,11 +17,13 @@ import java.util.ArrayList;
 
 public class Exemplo5List extends Activity implements AdapterView.OnItemClickListener {
 
-    ListView listView = (ListView) findViewById(R.id.listView);
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exemplo4_list);
+
+        listView = (ListView) findViewById(R.id.listView);
 
         ArrayList<Pessoa> list = new ArrayList<Pessoa>();
 
@@ -30,6 +34,7 @@ public class Exemplo5List extends Activity implements AdapterView.OnItemClickLis
 
 
         listView.setAdapter(pAdapter);
+        listView.setOnItemClickListener(this);
 
 
     }
@@ -39,6 +44,9 @@ public class Exemplo5List extends Activity implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Pessoa p = (Pessoa) listView.getAdapter().getItem(position);
 
-        Toast.makeText(this, "Pessoa selecionada: " + p.getNome(),Toast.LENGTH_SHORT).show();
+        EditText ed = (EditText) findViewById(R.id.editText);
+        ed.setText(p.getNome());
+
+        Toast.makeText(this, "CLICADO" + p.getNome(), Toast.LENGTH_SHORT).show();
     }
 }
