@@ -36,7 +36,8 @@ public class Tela2Activity extends AppCompatActivity {
 
     private void preencherDropDowTipoVinho(){
 
-        ArrayAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tiposDeVinho);
+        ArrayAdapter adaptador =
+new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tiposDeVinho);
 
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
