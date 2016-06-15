@@ -1,6 +1,7 @@
 package br.com.herbertrf.simpleview;
 
 import android.content.DialogInterface;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class Tela2Activity extends AppCompatActivity {
 
@@ -57,6 +61,24 @@ new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tiposDeVinh
         //exibe alerta para o usuário
         Toast toast = Toast.makeText(this, "Botão Salvar preesionado", Toast.LENGTH_LONG);
         toast.show();
+
+
+        //Cria um arquivo.txt na pasta downloads
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS), "arquivo.txt");
+
+        FileOutputStream outputStream;
+
+        try {
+            //cria um outputstream no arquivo no modo append
+            outputStream = new FileOutputStream(file,true);
+            //salva a string
+            outputStream.write(nomeVinho.getBytes());
+            //fecha o recurso
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
