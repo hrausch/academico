@@ -56,5 +56,12 @@
             android:text="Exemplo 5"
             android:id="@+id/button6"
             android:onClick="abrirExemplo5" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exemplo 6 - WS"
+            android:id="@+id/button8"
+            android:onClick="abrirExemplo6" />
     </LinearLayout>
 </RelativeLayout>

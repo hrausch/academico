@@ -42,4 +42,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, Exemplo5List.class);
         startActivity(i);
     }
+
+    public void abrirExemplo6(View v){
+        Intent i = new Intent(this, Exemplo6ListWSActivity.class);
+        startActivity(i);
+    }
 }

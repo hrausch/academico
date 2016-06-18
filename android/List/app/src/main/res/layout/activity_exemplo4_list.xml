@@ -18,7 +18,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
+        android:text="Usando ListView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Usando ListView" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        android:id="@+id/button7"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_alignEnd="@+id/listView"
+        android:onClick="buscarWs" />
 </RelativeLayout>
