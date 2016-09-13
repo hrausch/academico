@@ -19,6 +19,8 @@ public class MainActivity extends Activity {
     //Cria o adaptador para a lista
     PessoaAdapter pAdapter = new PessoaAdapter(this,new ArrayList<Pessoa>());
 
+    String nome, telefone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,15 @@ public class MainActivity extends Activity {
      * @param v
      */
     public void salvar(View v){
+
+
+
+        EditText inputNome = (EditText) findViewById(R.id.txtNome);
+        EditText inputTelefone = (EditText) findViewById(R.id.txtTelefone);
+
+        nome = inputNome.getText().toString();
+        telefone = inputTelefone.getText().toString();
+
 
         //Objeto que sera executado em backgrounnd
         AsyncTask taskWsSalvar = new ConnectionPessoa();
@@ -69,12 +80,6 @@ public class MainActivity extends Activity {
             switch (operacao){
 
                 case RestFullClient.OPERACAO_SALVAR:
-
-                    EditText inputNome = (EditText) findViewById(R.id.txtNome);
-                    EditText inputTelefone = (EditText) findViewById(R.id.txtTelefone);
-
-                    String nome = inputNome.getText().toString();
-                    String telefone = inputTelefone.getText().toString();
 
                     cliente.salvarPessoa(nome, telefone);
 

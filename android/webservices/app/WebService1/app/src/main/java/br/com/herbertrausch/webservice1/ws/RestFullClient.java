@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreProtocolPNames;
@@ -39,10 +40,9 @@ public class RestFullClient {
     public static final int OPERACAO_SALVAR = 2;
 
     //Endereco do servidor do Web Service
-    private String BASE_URL_WS = "http://192.168.0.3/webservice1/";
+    private String BASE_URL_WS = "http://200.128.152.122:8090/pessoa";
 
-    private String URL_RECUPERAR_PESSOA = BASE_URL_WS.concat("recuperar_pessoa.php");
-    private String URL_INSERIR_PESSOA = BASE_URL_WS.concat("inserir_pessoa.php");
+
 
     private HttpClient httpClient;
     private HttpGet httpGet;
@@ -71,7 +71,7 @@ public class RestFullClient {
 
         //atribue a url do servico
         try {
-            httpGet.setURI(new URI(URL_RECUPERAR_PESSOA));
+            httpGet.setURI(new URI(BASE_URL_WS));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -134,14 +134,21 @@ public class RestFullClient {
      */
    public void salvarPessoa(String nomePessoa, String telefonePessoa){
 
-       httpPost = new HttpPost(URL_INSERIR_PESSOA);
+       httpPost = new HttpPost(BASE_URL_WS);
 
        // O servico INSERIR_PESSOA recebe dois parametros via POST
        List<NameValuePair> params = new ArrayList<NameValuePair>();
-       params.add(new BasicNameValuePair("nome_pessoa", nomePessoa));
-       params.add(new BasicNameValuePair("telefone_pessoa", telefonePessoa));
+       params.add(new BasicNameValuePair("nome", nomePessoa));
 
        try {
+
+           Gson gson = new Gson();
+           String json = gson.toJson(e);
+           StringEntity input = new StringEntity(json);
+
+           input.setContentType("application/json");
+
+           httpPost.setEntity(input);
 
            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
