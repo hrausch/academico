@@ -27,9 +27,9 @@ public class RestFulClient {
     public static final int OPERACAO_SALVAR = 2;
 
     //Endereco do servidor do Web Service
-    private String BASE_URL_WS = "http://192.168.0.13:8080/restmongo/rest/";
+    private String BASE_URL_WS = "http://200.128.152.122:8090/";
 
-    private String URL_RECUPERAR_ENDERECOS = BASE_URL_WS.concat("enderecos");
+    private String URL_RECUPERAR_ENDERECOS = BASE_URL_WS.concat("endereco");
 
     private HttpClient httpClient;
 
