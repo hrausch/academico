@@ -13,12 +13,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.cefetmg.webservice.adapter.EnderecoAdapter;
 import br.cefetmg.webservice.model.Endereco;
 import br.cefetmg.webservice.restclient.RestFulClient;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
+    EnderecoAdapter eAdapter;
+
     EditText editRua, editCidade, editEstado;
     Endereco objEndereco;
     Button btnSalvar;
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
 
         ArrayList<Endereco> list = new ArrayList<Endereco>();
+
+        eAdapter = new EnderecoAdapter(this,list);
+        listView.setAdapter(eAdapter);
     }
 
 
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         objEndereco.setRua(editRua.getText().toString());
         objEndereco.setCidade(editCidade.getText().toString());
         objEndereco.setEstado(editEstado.getText().toString());
-        Log.e("APP", "Chamou");
+
         AsyncTask taskWs = new ConnectionEndereco();
         taskWs.execute();
 
@@ -78,12 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
 
             //salva e em seguida lista os dados registrados
-
             ArrayList<Endereco> list = new ArrayList<Endereco>();
 
             cliente.salvarEndereco(objEndereco);
-
             String jsonEnderecos = cliente.recuperarEnderecos();
+
             list = Endereco.fromArrayJson(jsonEnderecos);
 
             return list;
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
          */
         protected void onPostExecute(ArrayList<Endereco> result) {
             Context context = getApplicationContext();
-            CharSequence text = "Rua Salva com Sucesso!";
+            CharSequence text = "Registro salvo com sucesso!";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
@@ -103,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
             btnSalvar.setEnabled(true);
 
+            eAdapter.setLista(result);
+            listView.setAdapter(eAdapter);
 
-//            eAdapter.setLista(result);
-//            listView.setAdapter(eAdapter);
 
         }
     }
