@@ -24,6 +24,10 @@ public class Tela1Activity extends ActionBarActivity {
         EditText inputNome = (EditText) findViewById(R.id.editText);
         String nome = inputNome.getText().toString();
 
+        Strin b = "oi";
+        inputNome.setText("hello");
+        inputNome.setText(b);
+
         //Instancia uma "intencao" de ir para a Tela2Activity
         Intent it = new Intent(this, Tela2Activity.class);
 

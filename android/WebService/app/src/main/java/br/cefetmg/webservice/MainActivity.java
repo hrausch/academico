@@ -94,18 +94,7 @@ public class MainActivity extends AppCompatActivity {
          * Neste momento ele irah renderizar o listview com os dados recuperados no webservice
          */
         protected void onPostExecute(ArrayList<Endereco> result) {
-            Context context = getApplicationContext();
-            CharSequence text = "Rua Salva com Sucesso!";
-            int duration = Toast.LENGTH_SHORT;
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
-            btnSalvar.setEnabled(true);
-
-
-//            eAdapter.setLista(result);
-//            listView.setAdapter(eAdapter);
 
         }
     }
