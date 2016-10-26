@@ -40,12 +40,11 @@
 
     <ListView
             android:layout_width="wrap_content"
-            android:layout_height="254dp"
+            android:layout_height="300dp"
             android:id="@+id/listView"
             android:layout_below="@+id/editRua"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="171dp"
-        android:layout_weight="0.48" />
+        android:layout_weight="0.67" />
 
 
 
